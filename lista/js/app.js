@@ -64,12 +64,13 @@ function aplicarHeader() {
   document.getElementById('headerTitle').textContent = '🎁 ' + tituloFormatado;
 
   const subtitulo = config.mensagemBoasVindas || 'Chá de Bebê';
-  document.getElementById('headerSubtitle').textContent = subtitulo;
+  document.getElementById('headerSubtitle').innerHTML = subtitulo;
 
   const dataEl = document.getElementById('headerData');
   if (config.dataCha) {
-    dataEl.textContent = formatarData(config.dataCha);
+    dataEl.textContent = 'Data do evento: ' + formatarData(config.dataCha);
     dataEl.style.display = 'block';
+    dataEl.style.fontWeight = 'bold';
   } else {
     dataEl.style.display = 'none';
   }
