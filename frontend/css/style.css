@@ -237,13 +237,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  height: 44px;
-  min-height: 44px;
+  gap: 8px;
+  height: 48px;
+  min-height: 48px;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   transition: border-color 0.2s, background 0.2s;
 }
 
@@ -252,7 +253,37 @@ body {
   background: color-mix(in srgb, var(--cor-tema) 10%, white);
 }
 
-.tipo-option input { margin: 0; }
+.tipo-option input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tipo-option .radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.tipo-option:has(input:checked) .radio-custom {
+  border-color: var(--cor-tema);
+  background: var(--cor-tema);
+}
+
+.tipo-option:has(input:checked) .radio-custom::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+}
 
 /* MODAL ACTIONS - STICKY BOTTOM */
 .modal-body { 
