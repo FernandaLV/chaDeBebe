@@ -52,7 +52,7 @@ body {
 /* CONTAINER */
 .container { 
   width: 100%;
-  max-width: 100%;
+  max-width: 1200px;
   margin: 0 auto; 
   padding: 8px;
 }
@@ -80,23 +80,28 @@ body {
 .search-bar input:focus { border-color: var(--cor-tema); }
 
 /* CATEGORY */
-.category { margin-bottom: 12px; }
+.category {
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
 
 .category-title {
+  grid-column: 1 / -1;
   font-size: 14px;
   font-weight: 600;
   color: #666;
   padding: 6px 0;
   border-bottom: 2px solid var(--cor-tema);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
-/* GIFT CARD - MOBILE LAYOUT */
+/* GIFT CARD */
 .gift-card {
   background: white;
   border-radius: 10px;
   padding: 12px;
-  margin-bottom: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
@@ -344,12 +349,50 @@ body {
   font-size: 14px;
 }
 
-/* DESKTOP BREAKPOINTS */
-@media (min-width: 768px) {
+/* TABLET BREAKPOINT (577px - 768px) */
+@media (min-width: 577px) {
   .container { padding: 16px; }
-  .gift-card { flex-direction: row; align-items: center; }
-  .gift-icon { text-align: left; }
-  .gift-info { text-align: left; }
-  .gift-stock { margin-top: 0; }
-  .btn-reserve { width: auto; }
+  
+  .category {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .modal {
+    width: 480px;
+    height: auto;
+    max-height: 80vh;
+    border-radius: 16px;
+    padding: 20px;
+  }
+  
+  .modal h2 {
+    font-size: 18px;
+  }
+}
+
+/* DESKTOP BREAKPOINT (>768px) */
+@media (min-width: 769px) {
+  .header {
+    padding: 24px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  .header p {
+    font-size: 15px;
+  }
+  
+  .category {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .category-title {
+    font-size: 16px;
+  }
+  
+  .gift-name {
+    font-size: 15px;
+  }
 }
