@@ -11,20 +11,20 @@ async function init() {
     aplicarCorTexto(config.corTexto);
     aplicarHeader();
     aplicarTextoExplicacao();
-    
+
     const presentes = await apiListarPresentes();
     todosPresentes = presentes;
     renderizarPresentes(presentes);
   } catch (error) {
     console.error('Erro ao inicializar:', error);
-    document.getElementById('giftList').innerHTML = 
+    document.getElementById('giftList').innerHTML =
       '<div class="empty-state">Erro ao carregar. Tente novamente.</div>';
   }
 
   document.getElementById('searchInput').addEventListener('input', async function () {
     const termo = this.value.trim();
     try {
-      const presentes = termo === '' 
+      const presentes = termo === ''
         ? await apiListarPresentes()
         : await apiPesquisarPresentes(termo);
       renderizarPresentes(presentes);
@@ -58,8 +58,8 @@ function gerarGradiente(cor) {
 
 function aplicarHeader() {
   const titulo = config.nomeBebe || 'Lista de Presentes';
-  const tituloFormatado = titulo.indexOf('Lista') === -1 
-    ? 'Lista de Presentes da ' + titulo 
+  const tituloFormatado = titulo.indexOf('Lista') === -1
+    ? 'Lista de Presentes da ' + titulo
     : titulo;
   document.getElementById('headerTitle').textContent = '🎁 ' + tituloFormatado;
 
@@ -143,7 +143,7 @@ function renderizarPresentes(presentes) {
       }
       html += '    <button class="btn-reserve" onclick="abrirModal(' + p.id + ')"';
       if (p.restante === 0) html += ' disabled';
-      html += '>Reservar</button>';
+      html += '>Selecionar presente</button>';
       html += '  </div>';
       html += '</div>';
     });
