@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presentes - Chá de Bebê</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="header">
+    <h1 id="headerTitle">🎁 Lista de Presentes</h1>
+    <p id="headerSubtitle">Chá de Bebê</p>
+    <p id="headerData" class="data-cha"></p>
+  </div>
+
+  <div class="container">
+    <div id="infoText" class="info-text" style="display:none;"></div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Pesquisar presente...">
+    </div>
+
+    <div id="giftList" class="loading">Carregando presentes...</div>
+  </div>
+
+  <div id="modalOverlay" class="modal-overlay" onclick="if(event.target===this)fecharModal()">
+    <div class="modal">
+      <h2>Reservar: <span id="modalItemName"></span></h2>
+      <div class="modal-body">
+        <p style="font-size:0.85rem;color:#888;margin-bottom:1rem;">
+          <span id="modalItemStock"></span>
+        </p>
+
+        <label for="inputNome">Seu nome *</label>
+        <input type="text" id="inputNome" placeholder="Como gostaria de ser chamada?">
+
+        <label for="inputEmail">E-mail (opcional)</label>
+        <input type="email" id="inputEmail" placeholder="seu@email.com">
+
+        <label>Como deseja presentear? *</label>
+        <div class="tipo-group">
+          <label class="tipo-option">
+            <input type="radio" name="tipo" value="compra" checked>
+            <span>Comprar</span>
+          </label>
+          <label class="tipo-option">
+            <input type="radio" name="tipo" value="pix">
+            <span>Enviar PIX</span>
+          </label>
+        </div>
+
+        <label for="inputQuantidade">Quantidade</label>
+        <input type="number" id="inputQuantidade" value="1" min="1">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+        <button class="btn-confirm" onclick="confirmarReserva()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
