@@ -14,6 +14,8 @@ Cada presente SHALL exibir: ícone, nome, faixa de valor sugerido, quantidade re
 
 O frontend SHALL ser servido via GitHub Pages com HTML/CSS/JS puro, sem dependência de iframes do Google Apps Script.
 
+O container SHALL ter largura máxima de 1200px em telas grandes.
+
 #### Scenario: Listar presentes ativos
 
 - **WHEN** a convidada acessa a página principal no GitHub Pages
@@ -27,16 +29,29 @@ O frontend SHALL ser servido via GitHub Pages com HTML/CSS/JS puro, sem dependê
 
 #### Scenario: Layout responsivo mobile
 
-- **WHEN** a convidada acessa em dispositivo com tela ≤768px
-- **THEN** os gift cards são exibidos em layout vertical (empilhados)
+- **WHEN** a convidada acessa em dispositivo com tela ≤576px
+- **THEN** os gift cards são exibidos em grid de 1 coluna
 - **AND** o botão "Reservar" ocupa largura total
 - **AND** todos os elementos interativos têm mínimo 44px de altura
+
+#### Scenario: Layout tablet
+
+- **WHEN** a convidada acessa em dispositivo com tela entre 577px e 768px
+- **THEN** os gift cards são exibidos em grid de 2 colunas
+- **AND** o layout mantém proporções equilibradas
 
 #### Scenario: Layout desktop
 
 - **WHEN** a convidada acessa em dispositivo com tela >768px
-- **THEN** os gift cards são exibidos em layout horizontal
+- **THEN** os gift cards são exibidos em grid de 3 colunas
+- **AND** o container tem largura máxima de 1200px centralizado
 - **AND** o layout se adapta ao tamanho da tela
+
+#### Scenario: Container centralizado em telas grandes
+
+- **WHEN** a convidada acessa em tela com largura >1200px
+- **THEN** o conteúdo é centralizado com largura máxima de 1200px
+- **AND** espaços laterais são preenchidos com fundo cinza
 
 ### Requirement: Agrupar presentes por categoria
 
