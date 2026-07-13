@@ -1,6 +1,6 @@
 // api.js - Camada de comunicação com Apps Script
 
-const API_URL = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwwZCTkXj9dU90EcuuLWsIZadKaFTCvkAzMknWsoMgC2ECIA6UNFcvJi3ZqMp15r_qS/exec';
 
 async function apiRequest(action, params = {}) {
   try {
@@ -9,10 +9,10 @@ async function apiRequest(action, params = {}) {
     for (const [key, value] of Object.entries(params)) {
       url.searchParams.set(key, value);
     }
-    
+
     const response = await fetch(url.toString());
     if (!response.ok) throw new Error('Erro na requisição');
-    
+
     return await response.json();
   } catch (error) {
     console.error('Erro na API:', error);
@@ -30,7 +30,7 @@ async function apiPostRequest(data) {
       }
     });
     if (!response.ok) throw new Error('Erro na requisição');
-    
+
     return await response.json();
   } catch (error) {
     console.error('Erro na API:', error);
