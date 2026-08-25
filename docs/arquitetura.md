@@ -18,21 +18,21 @@ O sistema é composto por dois componentes principais:
 │     ▼                                                           │
 │  ┌─────────────────────────────────────────────────────────┐   │
 │  │  GITHUB PAGES                                            │   │
-│  │  https://usuario.github.io/chaDeBebe/                   │   │
+│  │  https://fernandalv.github.io/chaDeBebe/                │   │
 │  │                                                         │   │
 │  │  ┌──────────┐  ┌──────────┐  ┌──────────┐             │   │
-│  │  │  index   │  │  style   │  │   app    │             │   │
-│  │  │  .html   │→ │  .css    │  │   .js    │             │   │
-│  │  └──────────┘  └──────────┘  └────┬─────┘             │   │
-│  │                                    │                    │   │
-│  │                                    ▼                    │   │
-│  │                              ┌──────────┐              │   │
-│  │                              │  api.js  │              │   │
-│  │                              └────┬─────┘              │   │
-│  └─────────────────────────────────│───────────────────────┘   │
-│                                    │                            │
-│                          fetch()   │   JSON                     │
-│                                    ▼                            │
+│  │  │  config  │  │   app    │  │  index   │             │   │
+│  │  │  .js     │→ │   .js    │  │  .html   │             │   │
+│  │  └──────────┘  └──────────┘  └──────────┘             │   │
+│  │       │              │                                  │   │
+│  │       │              ▼                                  │   │
+│  │       │        ┌──────────┐                             │   │
+│  │       └───────→│  api.js  │                             │   │
+│  │                └────┬─────┘                             │   │
+│  └─────────────────────│───────────────────────────────────┘   │
+│                        │                                        │
+│              fetch()   │   JSON                                 │
+│                        ▼                                        │
 │  ┌─────────────────────────────────────────────────────────┐   │
 │  │  APPS SCRIPT WEB APP                                     │   │
 │  │  https://script.google.com/macros/s/XXX/exec            │   │
@@ -75,6 +75,7 @@ O sistema é composto por dois componentes principais:
 |---------|------------------|
 | `index.html` | Estrutura HTML da página |
 | `css/style.css` | Estilos mobile-first |
+| `js/config.js` | Configuração (gerado por GitHub Actions) |
 | `js/api.js` | Comunicação com o backend |
 | `js/app.js` | Lógica da aplicação |
 
@@ -96,12 +97,14 @@ O sistema é composto por dois componentes principais:
 
 ```
 1. Usuário abre a página
-2. app.js chama apiObterConfig()
-3. app.js chama apiListarPresentes()
-4. api.js faz GET ?action=listar
-5. Code.gs recebe, chama PresenteService.listarAtivos()
-6. Retorna JSON com lista de presentes
-7. app.js renderiza os cards
+2. index.html carrega config.js → APP_CONFIG.GOOGLE_SCRIPT_ID disponível
+3. index.html carrega api.js → API_URL montada com o ID
+4. app.js chama apiObterConfig()
+5. app.js chama apiListarPresentes()
+6. api.js faz GET ?action=listar
+7. Code.gs recebe, chama PresenteService.listarAtivos()
+8. Retorna JSON com lista de presentes
+9. app.js renderiza os cards
 ```
 
 ### Reservar Presente
@@ -118,9 +121,40 @@ O sistema é composto por dois componentes principais:
 9. app.js exibe toast e recarrega lista
 ```
 
+## CI/CD e Gestão de Secrets
+
+### GitHub Actions Workflow
+
+O deploy é automatizado via `.github/workflows/deploy.yml`:
+
+1. **Trigger:** Push na branch `master` ou manual
+2. **Build:** Gera `lista/js/config.js` com o `GOOGLE_SCRIPT_ID` do secret
+3. **Deploy:** Publica no GitHub Pages
+
+### Gestão do GOOGLE_SCRIPT_ID
+
+O ID de implantação do Apps Script é gerenciado como **GitHub Secret**:
+
+- **Repository Secret:** `GOOGLE_SCRIPT_ID`
+- **Valor:** Trecho da URL após `/s/` e antes de `/exec`
+- **Atualização:** Settings → Secrets → Edit no secret → Update
+
+O arquivo `config.js` **não é commitado** no repositório (está no `.gitignore`). Ele é gerado a cada build pelo workflow.
+
+### Desenvolvimento Local
+
+Para testar localmente, crie manualmente `lista/js/config.js`:
+
+```js
+var APP_CONFIG = {
+  GOOGLE_SCRIPT_ID: 'SEU_ID_AQUI'
+};
+```
+
 ## Segurança
 
 - Backend deployado como "Execute as: Me" + "Anyone"
 - CORS habilitado automaticamente pelo Apps Script
 - Sem autenticação no frontend (app público)
 - Admin mantido no Apps Script (protegido pelo Google)
+- `GOOGLE_SCRIPT_ID` armazenado em GitHub Secrets (não exposto no código)
