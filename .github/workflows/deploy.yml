@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches: [responsividade]
   workflow_dispatch:
 
 permissions:
@@ -23,14 +23,12 @@ jobs:
 
       - name: Generate config.js
         run: |
-          cat > lista/js/config.js << EOF
-          // config.js - Configuração gerenciada por GitHub Actions
-          // NÃO EDITE ARQUIVO DIRETAMENTE - altere via GitHub Secrets
-
-          var APP_CONFIG = {
-            GOOGLE_SCRIPT_ID: '\${{ secrets.GOOGLE_SCRIPT_ID }}'
-          };
-          EOF
+          echo "// config.js - Configuração gerenciada por GitHub Actions" > lista/js/config.js
+          echo "// NÃO EDITE ARQUIVO DIRETAMENTE - altere via GitHub Secrets" >> lista/js/config.js
+          echo "" >> lista/js/config.js
+          echo "var APP_CONFIG = {" >> lista/js/config.js
+          echo "  GOOGLE_SCRIPT_ID: '${{ secrets.GOOGLE_SCRIPT_ID }}'" >> lista/js/config.js
+          echo "};" >> lista/js/config.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
