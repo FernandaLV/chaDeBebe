@@ -1,6 +1,6 @@
 // api.js - Camada de comunicação com Apps Script
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwwZCTkXj9dU90EcuuLWsIZadKaFTCvkAzMknWsoMgC2ECIA6UNFcvJi3ZqMp15r_qS/exec';
+const API_URL = `https://script.google.com/macros/s/${APP_CONFIG.GOOGLE_SCRIPT_ID}/exec`;
 
 async function apiRequest(action, params = {}) {
   try {

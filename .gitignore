@@ -1,6 +1,12 @@
 # Dependencies
 node_modules/
 
+# Environment variables
+.env
+
+# Config (gerado pelo GitHub Actions)
+lista/js/config.js
+
 # OS files
 .DS_Store
 Thumbs.db
